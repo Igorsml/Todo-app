@@ -49,6 +49,7 @@ const deleteCheck = (elem) => {
     const todo = item.parentElement;
     // Animation
     todo.classList.add("fall");
+    removeLocalTodo(todo);
     todoList.addEventListener("transitionend", () => todo.remove());
   }
 
@@ -99,11 +100,12 @@ function saveLocalTodos(todo) {
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
-function getTOdos() {
+function getTOOdos() {
   let todos;
   localStorage.getItem("todos") === null
     ? (todos = [])
     : (todos = JSON.parse(localStorage.getItem("todos")));
+
   todos.forEach((todo) => {
     // Create todo
     const todoDiv = document.createElement("div");
@@ -111,11 +113,9 @@ function getTOdos() {
 
     // Create li
     const newTodo = document.createElement("li");
-    newTodo.innerText = todoInput.value;
+    newTodo.innerText = todo;
     newTodo.classList.add("todo-item");
     todoDiv.appendChild(newTodo);
-    // Add todo to local storage
-    saveLocalTodos(todoInput.value);
     // Check mark button
     const completedButton = document.createElement("button");
     completedButton.innerHTML = '<i class="fa-solid fa-check"></i>';
@@ -133,7 +133,19 @@ function getTOdos() {
   });
 }
 
+const removeLocalTodo = (todo) => {
+  let todos;
+  localStorage.getItem("todos") === null
+    ? (todos = [])
+    : (todos = JSON.parse(localStorage.getItem("todos")));
+
+  const todoIndex = todo.children[0].innerText;
+  todos.splice(todos.indexOf(todoIndex), 1);
+  localStorage.setItem("todos", JSON.stringify(todos));
+};
+
 // Event listeners
+document.addEventListener("DOMContentLoaded", getTOOdos);
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
 filterOption.addEventListener("click", filterTodo);
