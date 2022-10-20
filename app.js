@@ -8,7 +8,7 @@ const filterOption = document.querySelector(".filter-todo");
 
 // Functions
 const addTodo = (event) => {
-  if (todoInput.value.length <= 0 || todoInput.value !== " ") {
+  if (todoInput.value.length <= 0) {
     alert(
       "Sometimes the most important thing to do is to do nothing. © Debasish Mridha"
     );
