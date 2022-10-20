@@ -8,6 +8,12 @@ const filterOption = document.querySelector(".filter-todo");
 
 // Functions
 const addTodo = (event) => {
+  if (todoInput.value.length <= 0) {
+    alert(
+      "Sometimes the most important thing to do is to do nothing. © Debasish Mridha"
+    );
+    return;
+  }
   // Prevent form from submitting empty
   event.preventDefault();
 
@@ -100,7 +106,7 @@ function saveLocalTodos(todo) {
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
-function getTOOdos() {
+function getTodos() {
   let todos;
   localStorage.getItem("todos") === null
     ? (todos = [])
@@ -145,7 +151,7 @@ const removeLocalTodo = (todo) => {
 };
 
 // Event listeners
-document.addEventListener("DOMContentLoaded", getTOOdos);
+document.addEventListener("DOMContentLoaded", getTodos);
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
 filterOption.addEventListener("click", filterTodo);
